@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For You 🐘🌸</title>
+
+
+
+<style>
+
+    body {
+
+        margin: 0;
+
+        height: 100vh;
+
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+
+        overflow: hidden;
+
+        font-family: 'Segoe UI', sans-serif;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        color: white;
+
+    }
+
+
+
+    /* Flowers */
+
+    .flower {
+
+        position: absolute;
+
+        animation: float linear infinite;
+
+        opacity: 0.85;
+
+        pointer-events: none;
+
+    }
+
+
+
+    @keyframes float {
+
+        from { transform: translateY(100vh) rotate(0deg); }
+
+        to { transform: translateY(-10vh) rotate(360deg); }
+
+    }
+
+
+
+    /* Elephant */
+
+    .elephant {
+
+        font-size: 85px;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+
+        text-align: center;
+
+    }
+
+
+
+    .elephant:hover {
+
+        transform: scale(1.1);
+
+    }
+
+
+
+    .hint {
+
+        text-align: center;
+
+        margin-top: 10px;
+
+        opacity: 0.8;
+
+    }
+
+
+
+    /* Message box */
+
+    .message {
+
+        position: absolute;
+
+        width: 85%;
+
+        max-width: 420px;
+
+        background: rgba(0,0,0,0.8);
+
+        padding: 28px;
+
+        border-radius: 20px;
+
+        display: none;
+
+        text-align: left;
+
+        line-height: 1.8;
+
+        box-shadow: 0 0 40px rgba(255,255,255,0.25),
+
+                    0 0 80px rgba(255,255,255,0.1);
+
+        animation: glowFade 1s ease forwards;
+
+    }
+
+
+
+    @keyframes glowFade {
+
+        from {
+
+            opacity: 0;
+
+            transform: scale(0.95);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: scale(1);
+
+        }
+
+    }
+
+
+
+    /* Glowing text */
+
+    #text {
+
+        text-shadow: 0 0 10px rgba(255,255,255,0.7),
+
+                     0 0 20px rgba(255,255,255,0.3);
+
+    }
+
+
+
+    .para {
+
+        margin-bottom: 14px;
+
+    }
+
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<div id="start">
+
+    <div class="elephant" onclick="openMessage()">🐘</div>
+
+    <div class="hint">tap the elephant 🐘</div>
+
+</div>
+
+
+
+<div class="message" id="messageBox">
+
+    <div id="text"></div>
+
+</div>
+
+
+
+<script>
+
+    // Flowers
+
+    const flowers = ["🌸","🌷","🌹","💮","🌺","💐","🪻"];
+
+    for (let i = 0; i < 30; i++) {
+
+        let f = document.createElement("div");
+
+        f.className = "flower";
+
+        f.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
+
+        f.style.left = Math.random()*100 + "vw";
+
+        f.style.animationDuration = (6 + Math.random()*6) + "s";
+
+        f.style.fontSize = (25 + Math.random()*25) + "px";
+
+        document.body.appendChild(f);
+
+    }
+
+
+
+    const message = `Hey…
+
+
+
+I got a little bored and decided to do something different… so I made this for you.
+
+A small surprise - because you deserve one ✨
+
+
+
+We’ve only been talking for a little while, but somehow it already feels different with you. I catch myself looking forward to your messages, smiling at my phone like an idiot… and honestly, missing you a bit when we’re not talking💙
+
+
+
+I just wanted you to know that I really like you😊
+
+
+
+You’re genuinely such an amazing person - the kind that just makes everything feel lighter and better without even trying.
+
+
+
+I hope you have a really good week ahead, and I’ll chat to you later 😘
+
+
+
+Also… please work on your dissertation 🤨
+
+Because if you don’t, I might have to stop talking to you…
+
+(which would be extremely difficult, but some sacrifices are worth it)`;
+
+
+
+    function openMessage() {
+
+        document.getElementById("start").style.display = "none";
+
+        document.getElementById("messageBox").style.display = "block";
+
+
+
+        const textEl = document.getElementById("text");
+
+
+
+        const paragraphs = message.split("\n\n");
+
+
+
+        let pIndex = 0;
+
+        let charIndex = 0;
+
+        let speed = 40;
+
+
+
+        function typeParagraph() {
+
+            if (pIndex < paragraphs.length) {
+
+
+
+                if (charIndex === 0) {
+
+                    let p = document.createElement("div");
+
+                    p.classList.add("para");
+
+                    textEl.appendChild(p);
+
+                }
+
+
+
+                let currentPara = textEl.lastChild;
+
+
+
+                if (charIndex < paragraphs[pIndex].length) {
+
+                    currentPara.innerHTML += paragraphs[pIndex].charAt(charIndex);
+
+                    charIndex++;
+
+                    setTimeout(typeParagraph, speed);
+
+                } else {
+
+                    pIndex++;
+
+                    charIndex = 0;
+
+                    setTimeout(typeParagraph, 500);
+
+                }
+
+            }
+
+        }
+
+
+
+        typeParagraph();
+
+    }
+
+</script>
+
+
+
+</body>
+
+</html>
